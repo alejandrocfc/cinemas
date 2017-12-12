@@ -1,0 +1,20 @@
+{
+  "name": "cinemas",
+  "description": "Test cinema: MEAN",
+  "main": "app.js",
+  "authors": [
+    "Alejandro Gómez <man_alejo@hotmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mean"
+  ],
+  "homepage": "https://github.com/alejandrocfc/cinemas",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
