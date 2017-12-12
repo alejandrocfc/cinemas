@@ -1,0 +1,53 @@
+<div>
+    <div ng-if="sending" ng-class="{spinner: sending}">
+        <div>
+            <span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
+        </div>
+    </div>
+    <div ng-if="!sending">
+        <form name="MovieEdit" class="ui form" ng-class="{'loading': sending}"
+              ng-submit="save(MovieEdit.$valid)" novalidate>
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control has-icons-right">
+                    <input name="name" class="input" ng-model="item.name" ng-class="{'is-danger': MovieEdit.name.$touched && MovieEdit.name.$invalid,'is-success':MovieEdit.name.$touched && MovieEdit.name.$valid}"
+                           type="text" required>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':MovieEdit.name.$touched && MovieEdit.name.$invalid,'fa fa-check':MovieEdit.name.$touched && MovieEdit.name.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="locationField">Language</label>
+                <div class="control has-icons-right" id="locationField">
+                    <input name="language" class="input" ng-model="item.language" ng-class="{'is-danger': MovieEdit.language.$touched && MovieEdit.language.$invalid,'is-success':MovieEdit.language.$touched && MovieEdit.language.$valid}"
+                           type="text" required/>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':MovieEdit.language.$touched && MovieEdit.language.$invalid,'fa fa-check':MovieEdit.language.$touched && MovieEdit.language.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Premier</label>
+                <div class="control has-icons-right">
+                    <input name="phone" class="input" ng-model="item.premier" ng-class="{'is-danger': MovieEdit.phone.$touched && MovieEdit.phone.$invalid,'is-success':MovieEdit.phone.$touched && MovieEdit.phone.$valid}"
+                           type="text" required>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':MovieEdit.phone.$touched && MovieEdit.phone.$invalid,'fa fa-check':MovieEdit.phone.$touched && MovieEdit.phone.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Website</label>
+                <div class="control has-icons-right">
+                    <input name="website" class="input" ng-model="item.website" ng-class="{'is-danger': MovieEdit.website.$touched && MovieEdit.website.$invalid,'is-success':MovieEdit.website.$touched && MovieEdit.website.$valid}"
+                           type="text" required>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':MovieEdit.website.$touched && MovieEdit.website.$invalid,'fa fa-check':MovieEdit.website.$touched && MovieEdit.website.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <input type="submit" value="Guardar" class="button is-info is-outlined is-large is-fullwidth" ng-disabled="MovieEdit.$invalid">
+        </form>
+    </div>
+</div>

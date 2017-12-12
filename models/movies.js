@@ -2,10 +2,9 @@ let mongoose = require('mongoose');
 
 // create a schema
 let movieSchema =  mongoose.Schema({
-    create: Date,
+    createAt: Date,
     updateAt: Date,
     name: String,
-    description: String,
     website: String,
     premier: Date,
     language: String,

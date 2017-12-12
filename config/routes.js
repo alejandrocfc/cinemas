@@ -49,7 +49,6 @@ module.exports = function(app, variable) {
         });
     app.get('/cms/theaters/list', checkSession, function (req, res) {
         Theater.find()
-            .populate('theaterID')
             .exec( function(err, data) {
                 if (err) {
                     res.send(err);
@@ -70,7 +69,7 @@ module.exports = function(app, variable) {
     });
     app.post('/cms/theaters/edit', checkSession, function (req, res) {
         const data = req.body.data;
-        console.log(data);
+        data.updateAt = moment();
         Theater.findByIdAndUpdate(data._id,data, function(err, snap){
             if (err) res.json(err);
             if(!snap) res.send('NOT FOUND');
@@ -80,6 +79,43 @@ module.exports = function(app, variable) {
     app.post('/cms/theaters/delete', checkSession, function (req, res) {
         const data = req.body;
         Theater.findByIdAndRemove(data.id, {}, function(err, snap){
+            if (err) res.json(err);
+            res.json(snap)
+        });
+    });
+    app.get('/cms/movies/list', checkSession, function (req, res) {
+        Movie.find()
+            .populate('theaterID')
+            .exec( function(err, data) {
+                if (err) {
+                    res.send(err);
+                }else if(data){
+                    res.json(data);
+                }else{res.send({msg:'HELLO'});}
+
+            });
+    });
+    app.get('/cms/movies/add', checkSession, function (req, res) {
+        const movie = new Movie;
+        const today = moment();
+        movie.createAt = today;
+        movie.updateAt = today;
+        movie.save().then(function(snap, arr) {
+            res.send(snap);
+        });
+    });
+    app.post('/cms/movies/edit', checkSession, function (req, res) {
+        const data = req.body.data;
+        data.updateAt = moment();
+        Movie.findByIdAndUpdate(data._id,data, function(err, snap){
+            if (err) res.json(err);
+            if(!snap) res.send('NOT FOUND');
+            res.json(snap)
+        });
+    });
+    app.post('/cms/movies/delete', checkSession, function (req, res) {
+        const data = req.body;
+        Movie.findByIdAndRemove(data.id, {}, function(err, snap){
             if (err) res.json(err);
             res.json(snap)
         });

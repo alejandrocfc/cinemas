@@ -1,20 +1,26 @@
-<div class="columns is-multiline is-mobile">
-    <div class="column" ng-repeat="theater in data">
-        <div class="card">
-            <div class="card-content">
-                <div class="content">
-                    <div>{{theater.name}}</div>
-                    <small>{{theater.address}}</small>
-                    <br>
-                    <small>Phone: {{theater.phone}}</small>
-                </div>
-            </div>
-            <footer class="card-footer">
-                <a class="card-footer-item" ui-sref="cms.theaters.edit({item: theater, id: theater._id})">Edit</a>
-                <a class="card-footer-item" ng-click="openModal(theater._id)">Delete</a>
-            </footer>
-        </div>
-    </div>
+<div class="card-table">
+    <table class="table is-fullwidth is-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Theater</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in data">
+                <th>{{item.name}}</th>
+                <th>{{item.theaterID.name}}</th>
+                <th ui-sref="cms.movies.edit({item: item, id: item._id})">
+                    <span class="icon"><i class="fa fa-edit"></i></span>
+                </th>
+                <th ng-click="openModal(item._id)">
+                    <span class="icon"><i class="fa fa-trash"></i></span>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <!-- MODAL -->
 <div class="modal" id="modal-slider" ng-class="{'is-active':enabled}">
