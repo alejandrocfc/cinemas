@@ -1,0 +1,34 @@
+<nav class="navbar has-shadow">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../">
+                <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox">
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="columns">
+
+    <aside class="column is-4 aside hero is-fullheight">
+        <div>
+            <div class="compose has-text-centered">
+                <a class="button is-info is-block is-bold">
+                    <span class="compose">New Theater</span>
+                </a>
+            </div>
+            <div class="compose has-text-centered">
+                <a class="button is-info is-block is-bold">
+                    <span class="compose">New Movie</span>
+                </a>
+            </div>
+            <div class="main" ng-repeat="menu in navMenu"  ng-click="selectPanel(menu.state)">
+                <a ng-class="{'is-active': isSelected(menu.state)}" class="item"><span class="icon"><i class="{{menu.icon}}"></i></span><span class="name">{{menu.name}}</span></a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="column is-8 theaters hero is-fullheight">
+        <div ui-view></div>
+    </div>
+
+</div>

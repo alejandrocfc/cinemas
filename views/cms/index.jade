@@ -1,0 +1,19 @@
+extends cmslayout
+
+block css
+    link(rel="stylesheet" href="/stylesheets/cms/cms.css")
+
+
+block content
+    div(ui-view)
+
+block javascript
+    script(src="/bower/angular/angular.js")
+    script(src="/bower/angular-ui-router/release/angular-ui-router.min.js")
+    script(src="/bower/angular-spinner/dist/angular-spinner.min.js")
+    script(src="/bower/a0-angular-storage/dist/angular-storage.min.js")
+    script(src="/js/cms/main.js")
+    script(src="/js/cms/modules/main_ctrl.js")
+    script(src="/js/cms/modules/theaters/main.js")
+    script(src="/js/cms/modules/theaters/index.js")
+

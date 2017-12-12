@@ -1,0 +1,47 @@
+<div class="columns is-multiline is-mobile">
+    <div class="column" ng-repeat="slider in data | orderBy:'position'">
+        <div class="card">
+            <div class="card-image" ng-if="slider.image">
+                <figure class="image is-4by3">
+                    <img ng-src="{{slider.image}}" alt="{{slider.title}}">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <div>{{slider.content}}</div>
+                    <small>{{slider.title}}</small>
+                    <br>
+                    <small>Posición: {{slider.position}}</small>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a class="card-footer-item" ui-sref="cms.slider.edit({item: slider, id: slider._id})">Editar</a>
+                <!--<a class="card-footer-item" ng-click="editSlider(slider)">Editar</a>-->
+                <a class="card-footer-item" ng-click="openModal(slider._id)">Borrar</a>
+            </footer>
+        </div>
+    </div>
+</div>
+<!-- MODAL -->
+<div class="modal" id="modal-slider" ng-class="{'is-active':enabled}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Modal title</p>
+                <button ng-click="closeModal()" class="delete"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="content">
+                    <p>Está seguro que quiere eliminar este ítem?</p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <a class="button is-danger" ng-click="deleteSlider()">Delete</a>
+                <a class="button" ng-click="closeModal()">Cancel</a>
+            </footer>
+        </div>
+    </div>
+</div>
+
+

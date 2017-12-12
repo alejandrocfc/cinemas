@@ -1,15 +1,31 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var sassMiddleware = require('node-sass-middleware');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const sassMiddleware = require('node-sass-middleware');
+const mongoose = require('mongoose');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const app = express();
+let variable = {};
 
-var app = express();
+
+// configuration ===========================================
+const config = require('./config/db'); // DB configuration
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.url, {useMongoClient: true}); // connect to our mongoDB database
+
+const Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+const conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', function(err, db) {
+    console.log('- Connection open -');
+    variable.gfs = Grid(conn.db);
+});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,12 +45,13 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// routes ==================================================
+require('./config/routes')(app, variable); // pass our application into our routes
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

@@ -1,5 +1,5 @@
 node_modules
 bower_components
-/assets/bower/
-assets/bower/
-/assets/images/logos/
+/public/bower/
+public/bower/
+/public/images/logos/
