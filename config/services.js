@@ -29,5 +29,19 @@ function verifyToken(token) {
     }
     return verifyToken;
 }
+function createToken(user){
+    console.log(jwtSettings.secret);
+    return jwt.sign({
+            user: user.toJSON()
+        },
+        jwtSettings.secret,
+        {
+            algorithm: jwtSettings.algorithm,
+            expiresIn: jwtSettings.expiresIn,
+            issuer: jwtSettings.issuer,
+            audience: jwtSettings.audience
+        }
+    );
+}
 
-module.exports = {verifyToken:verifyToken};
+module.exports = {verifyToken:verifyToken,createToken:createToken};

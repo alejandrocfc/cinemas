@@ -1,0 +1,33 @@
+extends layout
+
+block css
+    link(rel='stylesheet', id='bulma', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css")
+
+block content
+    section.hero.is-fullheight(ng-app='loginApp')
+        .hero-body(ng-controller='LoginCtrl')
+            .container.has-text-centered
+                .column.is-4.is-offset-4
+                    h3.title.has-text-grey Sign in
+                    p.subtitle.has-text-grey CMS Login.
+                    .box
+                        figure.avatar
+                            img(src='https://placehold.it/128x128')
+                        form(name="formLogin", ng-submit="submit(formLogin.$valid)")
+                            .field
+                                .control
+                                    input.input.is-large(type='email', placeholder='Your Email', autofocus='', ng-model='form.email', required)
+                            .field
+                                .control
+                                    input.input.is-large(type='password', placeholder='Your Password', ng-model='form.password', required)
+                            input.button.is-block.is-info.is-large(type="submit", value="Sing in", ng-disabled="formLogin.$invalid")
+                            .field(ng-if="message") {{message}}
+
+block javascript
+    script(src="/bower/angular/angular.js")
+    script(src="/bower/angular-ui-router/release/angular-ui-router.min.js")
+    script(src="/bower/angular-spinner/dist/angular-spinner.min.js")
+    script(src="/bower/a0-angular-storage/dist/angular-storage.min.js")
+    script(src="/js/login/main.js")
+    script(src="/js/services/globalService.js")

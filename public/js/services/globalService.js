@@ -6,7 +6,10 @@ app.factory('httpService', function($http, $q, store) {
         const deffered = $q.defer();
         $http({
             method:'GET',
-            url: url
+            url: url,
+            headers: {
+                'Authorization' : store.get('token')
+            }
         }).then(function (d) {
             console.log(d);
             deffered.resolve(d.data);
@@ -22,7 +25,7 @@ app.factory('httpService', function($http, $q, store) {
             url: url,
             data: params,
             headers: {
-                'Authorization' : 'JWT '+store.get('token')
+                'Authorization' : store.get('token')
             }
         }).then(function (d) {
             console.log(d);
@@ -48,14 +51,11 @@ app.factory('errorHandle', function(store, $q, $window) {
 });
 app.factory('sessionService', function (store, $http, $q) {
     return{
-        setUser : function(aUser){
-            user = aUser;
-        },
         verifyToken : function(){
             const deffered = $q.defer();
             $http({
                 method:'GET',
-                url: 'auth/session',
+                url: '/cms/session',
                 headers: {
                     'Authorization' : store.get('token')
                 }
@@ -65,9 +65,6 @@ app.factory('sessionService', function (store, $http, $q) {
                 deffered.reject(e)
             });
             return deffered.promise;
-        },
-        clearUser : function () {
-            user = false;
         }
     }
 
@@ -75,18 +72,7 @@ app.factory('sessionService', function (store, $http, $q) {
 app.factory('userService', function (store, $window) {
     return{
         redirect : function () {
-            if(store.get('info') && store.get('token') && store.get('user')){
-                switch (store.get('user').rol){
-                    case 1:
-                        console.log('PARNTER GOD');
-                        $window.location.href = '/partner';
-                        break;
-                    case 2:
-                        console.log('PARNTER HUMAN');
-                        $window.location.href = '/commercial';
-                        break;
-                }
-            }
+            if(store.get('token') && store.get('user'))$window.location.href = '/cms';
         }
     }
 

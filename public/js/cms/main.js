@@ -1,6 +1,14 @@
 const cms = angular.module('cms', ['ui.router', 'angularSpinner', 'angular-storage', 'shared.services']);
 
-cms.run(function ($rootScope, $location,$templateCache) {
+cms.run(function ($transitions, sessionService, errorHandle) {
+    $transitions.onStart({}, function() {
+        sessionService.verifyToken().then(function (snap) {
+            console.log('ALLOW');
+            if(!snap.flag) errorHandle.logout();
+        }).catch(function (e) {
+            errorHandle.logout()
+        });
+    });
 });
 
 cms.config(['$stateProvider', '$urlRouterProvider', 'usSpinnerConfigProvider', function($stateProvider, $urlRouterProvider, usSpinnerConfigProvider) {

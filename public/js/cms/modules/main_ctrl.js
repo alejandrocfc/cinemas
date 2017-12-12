@@ -1,6 +1,6 @@
 var modules = angular.module('cms');
 
-modules.controller("CMSMainCtrl", function($scope, $state, httpService){
+modules.controller("CMSMainCtrl", function($scope, $state, store, httpService){
 
     var ctrl = this;
     ctrl.tab = 'theaters.list';
