@@ -7,6 +7,7 @@ module.exports = function(app, variable) {
     const moment = require('moment');
     const moongose = require('mongoose');
     const Services = require('./services');
+    const Promise = require('bluebird');
     // Models
     const Theater = require('../models/theaters');
     const Movie = require('../models/movies');
@@ -14,6 +15,29 @@ module.exports = function(app, variable) {
 
     app.get('/', function (req, res) {
      res.render('index')
+    });
+    app.get('/theaters/list', function (req, res) {
+        Theater.find()
+            .exec( function(err, data) {
+                if (err) {
+                    res.send(err);
+                }else if(data){
+                    res.json(data);
+                }else{res.send({msg:'HELLO'});}
+
+            });
+    });
+    app.get('/movies/list', function (req, res) {
+        Movie.find()
+            .populate('theaterID')
+            .exec( function(err, data) {
+                if (err) {
+                    res.send(err);
+                }else if(data){
+                    res.json(data);
+                }else{res.send({msg:'HELLO'});}
+
+            });
     });
 
     // ************ CMS ************

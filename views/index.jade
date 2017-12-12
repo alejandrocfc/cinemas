@@ -1,5 +1,57 @@
 extends layout
 
+block css
+  meta(charset="utf-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+  link(rel="stylesheet" href="/stylesheets/cms.css")
+  link(rel='stylesheet', id='bulma', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+  link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css")
+
 block content
-  h1= title
-  p Welcome to #{title}
+  nav.navbar.has-shadow
+    .container
+      .navbar-brand
+        a.navbar-item(href='../')
+          | CINEMAS
+          img(src='https://placekitten.com/640/160', alt='Bulma: a modern CSS framework based on Flexbox')
+  .columns(ng-app='user',ng-controller='UserCtrl')
+    aside.column.is-4.aside.hero.is-fullheight
+      div
+        .main(ng-repeat="menu in navMenu", ng-click="selectPanel(menu.state)")
+          a.item(ng-class="{'is-active': isSelected(menu.state)}")
+            span.icon
+              i(class='{{menu.icon}}')
+            span.name {{menu.name}}
+    .column.is-8.theaters.hero.is-fullheight
+      div(ng-if="isSelected(0)")
+        .columns.is-multiline.is-mobile
+          .column(ng-repeat='theater in theaters')
+            .card
+              .card-content
+                .content
+                  div {{theater.name}}
+                  small {{theater.address}}
+                  br
+                  small Phone: {{theater.phone}}
+      div(ng-if="isSelected(1)")
+        .columns.is-multiline.is-mobile
+          .column(ng-repeat='movie in movies')
+            .card
+              .card-content
+                .content
+                  div {{movie.name}}
+                  small {{movie.language}}
+                  br
+                  small Premier: {{movie.premier}}
+                  br
+                  small Web: {{movie.website}}
+                  br
+                  small Theater: {{movie.theaterID.name}}
+
+block javascript
+  script(src="/bower/angular/angular.js")
+  script(src="/bower/angular-ui-router/release/angular-ui-router.min.js")
+  script(src="/bower/angular-spinner/dist/angular-spinner.min.js")
+  script(src="/bower/a0-angular-storage/dist/angular-storage.min.js")
+  script(src="/js/user/main.js")
+  script(src="/js/services/globalService.js")
