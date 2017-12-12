@@ -1,4 +1,4 @@
-const cms = angular.module('cms', ['ui.router', 'angularSpinner', 'angular-storage']);
+const cms = angular.module('cms', ['ui.router', 'angularSpinner', 'angular-storage', 'shared.services']);
 
 cms.run(function ($rootScope, $location,$templateCache) {
 });

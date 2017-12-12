@@ -1,8 +1,8 @@
 const cms_main = angular.module('cms');
 
-cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, $log) {
+cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, $log, httpService) {
 
-    var ctrl = this;
+    let ctrl = this;
 
     /**
      * Settings - vars
@@ -10,47 +10,23 @@ cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, 
     ctrl.tab = 0;
     ctrl.days = {};
 
-    $scope.data = [
-        {content:'asdasd',title:'qweqwe',position:0},
-        {content:'asdasd',title:'qweqwe',position:1},
-        {content:'asdasd',title:'qweqwe',position:2}
-    ];
+    httpService.asyncGet('cms/theaters/list').then(function (snap) {
+        console.log(snap);
+        if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
+        $scope.data = snap
+    });
 
-
-    $scope.editSlider = function (item) {
+    $scope.editTheater = function (item) {
         console.log('RTA: ',item);
         $state.go('cms.slider.edit', {item: item})
     };
 
-    $scope.addNewSlider = function () {
-        $http({
-            method: 'POST',
-            url: '/api/cms/slider/new',
-            data: {id: $scope.data.length}
-        }).then(function (response) {
-            console.log('RTA: ',response.data);
-            if(response.status === 200){
-                var data = response.data;
-                $state.go('cms.slider.edit', {item: data, id: data._id})
-            }
-        }, function (response) {
-            console.log('ERROR RTA: ',response);
-        });
-    };
-
-    $scope.deleteSlider = function () {
-        $log.log('ID', $scope.modalId);
-        $http({
-            method: 'POST',
-            url: '/api/cms/slider/delete',
-            data: {id: $scope.modalId}
-        }).then(function (response) {
-            console.log('RTA: ',response.data);
-            if(response.status === 200){
-                renderService.setFlag(false);
-            }
-        }, function (response) {
-            console.log('ERROR RTA: ',response);
+    $scope.deleteTheater = function () {
+        console.log('ID', $scope.modalId);
+        httpService.asyncPost('/cms/theaters/delete',{id:$scope.modalId}).then(function (snap) {
+            console.log(snap);
+            if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
+            $scope.data = snap
         });
     };
 
