@@ -45,7 +45,7 @@ app.factory('errorHandle', function(store, $q, $window) {
         store.remove('token');
         store.remove('info');
         store.remove('user');
-        $window.location.href = '/'
+        $window.location.href = '/cms'
     };
     return errorHandle;
 });
