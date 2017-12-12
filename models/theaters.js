@@ -6,7 +6,7 @@ let theaterSchema =  mongoose.Schema({
     updateAt: Date,
     name: String,
     address: String,
-    phone: String
+    phone: Number
 });
 
 let collectionName = 'theater';

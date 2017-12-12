@@ -1,6 +1,7 @@
 var modules = angular.module('cms');
 
-modules.controller("CMSMainCtrl", function($scope, $state, store, httpService){
+modules.controller("CMSMainCtrl", function($scope, $state, store, httpService, userService){
+    console.log('HELLO FROM MAIN CTRL');
 
     var ctrl = this;
     ctrl.tab = 'theaters.list';
@@ -22,14 +23,14 @@ modules.controller("CMSMainCtrl", function($scope, $state, store, httpService){
     };
 
     $scope.addTheater = function () {
-        httpService.asyncGet('cms/theaters/add').then(function (snap) {
+        httpService.asyncGet('theaters/add').then(function (snap) {
             console.log(snap);
             if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
             $scope.data = snap
         });
     };
     $scope.addMovie = function () {
-        httpService.asyncGet('cms/theaters/add').then(function (snap) {
+        httpService.asyncGet('movies/add').then(function (snap) {
             console.log(snap);
             if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
             $scope.data = snap

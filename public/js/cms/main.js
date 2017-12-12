@@ -18,7 +18,7 @@ cms.config(['$stateProvider', '$urlRouterProvider', 'usSpinnerConfigProvider', f
     .state('cms', {
         abstract: true,
         url:'/',
-        templateUrl: 'templates/cms/index.html',
+        templateUrl: '../../templates/cms/index.html',
         controller: 'CMSMainCtrl'
     });
 

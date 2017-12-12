@@ -1,1 +1,43 @@
-<div>Edit</div>
+<div>
+    <div ng-if="sending" ng-class="{spinner: sending}">
+        <div>
+            <span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
+        </div>
+    </div>
+    <div ng-if="!sending">
+        <form name="TheaterEdit" class="ui form" ng-class="{'loading': sending}"
+              ng-submit="save(TheaterEdit.$valid)" novalidate>
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control has-icons-right">
+                    <input name="name" class="input" ng-model="item.name" ng-class="{'is-danger': TheaterEdit.name.$touched && TheaterEdit.name.$invalid,'is-success':TheaterEdit.name.$touched && TheaterEdit.name.$valid}"
+                           type="text" required>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':TheaterEdit.name.$touched && TheaterEdit.name.$invalid,'fa fa-check':TheaterEdit.name.$touched && TheaterEdit.name.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="locationField">Address</label>
+                <div class="control has-icons-right" id="locationField">
+                    <input name="address" class="input" ng-model="item.address" ng-class="{'is-danger': TheaterEdit.address.$touched && TheaterEdit.address.$invalid,'is-success':TheaterEdit.address.$touched && TheaterEdit.address.$valid}"
+                           type="text" required/>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':TheaterEdit.name.$touched && TheaterEdit.name.$invalid,'fa fa-check':TheaterEdit.name.$touched && TheaterEdit.name.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Phone</label>
+                <div class="control has-icons-right">
+                    <input name="phone" class="input" ng-model="item.phone" ng-class="{'is-danger': TheaterEdit.phone.$touched && TheaterEdit.phone.$invalid,'is-success':TheaterEdit.phone.$touched && TheaterEdit.phone.$valid}"
+                           type="number" required>
+                    <span class="icon is-small is-right">
+                        <i ng-class="{'fa fa-warning':TheaterEdit.phone.$touched && TheaterEdit.phone.$invalid,'fa fa-check':TheaterEdit.phone.$touched && TheaterEdit.phone.$valid}"></i>
+                      </span>
+                </div>
+            </div>
+            <input type="submit" value="Guardar" class="button is-info is-outlined is-large is-fullwidth" ng-disabled="TheaterEdit.$invalid">
+        </form>
+    </div>
+</div>

@@ -7,7 +7,7 @@ loginApp.controller('LoginCtrl', function ($scope, $http, $location, $window, st
         console.log(valido);
         if(!valido) return;
         console.log('FORM: ',$scope.form);
-        httpService.asyncPost('/cms/login',$scope.form).then(function (data) {
+        httpService.asyncPost('/cms',$scope.form).then(function (data) {
             console.log(data);
             if(data.flag) {
                 console.log('RTA: ', data);
@@ -29,7 +29,7 @@ loginApp.controller('LoginCtrl', function ($scope, $http, $location, $window, st
 
     $scope.redirect= function (data) {
         if(data.success)
-            $window.location.href = '/cms';
+            $window.location.href = '/cms/main';
     }
 
 });

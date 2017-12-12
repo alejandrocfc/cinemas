@@ -17,10 +17,10 @@ module.exports = function(app, variable) {
     });
 
     // ************ CMS ************
-    app.get('/cms', function (req, res) {
+    app.get('/cms/main', function (req, res) {
         res.render('cms/index', {title: 'CMS'})
     });
-    app.route('/cms/login')
+    app.route('/cms')
         .get(function (req, res) {
             res.render('login')
         })
@@ -69,9 +69,11 @@ module.exports = function(app, variable) {
         });
     });
     app.post('/cms/theaters/edit', checkSession, function (req, res) {
-        const data = req.body;
-        Theater.findByIdAndUpdate(data.id, data, {upsert:true}, function(err, snap){
+        const data = req.body.data;
+        console.log(data);
+        Theater.findByIdAndUpdate(data._id,data, function(err, snap){
             if (err) res.json(err);
+            if(!snap) res.send('NOT FOUND');
             res.json(snap)
         });
     });
@@ -89,7 +91,7 @@ module.exports = function(app, variable) {
         let isOk = Services.verifyToken(token);
         console.log(isOk);
         if(isOk.success)next();
-        else{res.redirect('index');}
+        else{res.json(isOk);}
     }
     app.get('/cms/session', function (req, res) {
         const token = req.headers['authorization'];

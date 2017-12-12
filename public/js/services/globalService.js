@@ -72,7 +72,7 @@ app.factory('sessionService', function (store, $http, $q) {
 app.factory('userService', function (store, $window) {
     return{
         redirect : function () {
-            if(store.get('token') && store.get('user'))$window.location.href = '/cms';
+            if(store.get('token') && store.get('user'))$window.location.href = '/cms/main';
         }
     }
 

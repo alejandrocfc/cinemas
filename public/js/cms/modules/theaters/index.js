@@ -1,6 +1,8 @@
-const cms_main = angular.module('cms');
+const cms_theater = angular.module('cms');
 
-cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, $log, httpService) {
+cms_theater.controller('theatersCtrl', function ($scope, $location, $state, $http, $log, httpService) {
+
+    console.log('HELLO FROM LIST THEATER CTRL');
 
     let ctrl = this;
 
@@ -10,7 +12,7 @@ cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, 
     ctrl.tab = 0;
     ctrl.days = {};
 
-    httpService.asyncGet('cms/theaters/list').then(function (snap) {
+    httpService.asyncGet('theaters/list').then(function (snap) {
         console.log(snap);
         if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
         $scope.data = snap
@@ -18,12 +20,12 @@ cms_main.controller('theatersCtrl', function ($scope, $location, $state, $http, 
 
     $scope.editTheater = function (item) {
         console.log('RTA: ',item);
-        $state.go('cms.slider.edit', {item: item})
+        $state.go('cms.theater.edit', {item: item})
     };
 
     $scope.deleteTheater = function () {
         console.log('ID', $scope.modalId);
-        httpService.asyncPost('/cms/theaters/delete',{id:$scope.modalId}).then(function (snap) {
+        httpService.asyncPost('theaters/delete',{id:$scope.modalId}).then(function (snap) {
             console.log(snap);
             if(snap.code === "E_UNAUTHORIZED"){errorHandle.logout()}
             $scope.data = snap
